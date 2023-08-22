@@ -27,7 +27,7 @@ namespace UserAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("DateOfBirth")
                         .IsRequired()
                         .HasColumnType("nvarchar");
 

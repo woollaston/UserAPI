@@ -32,8 +32,7 @@ namespace UserAPI.Controllers
             // Try finding existing user
             var user = model.Id != Guid.Empty
                 ? await _context.Users.SingleOrDefaultAsync(u => u.Id == model.Id)
-                : await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email) ??
-                    await _context.Users.FirstOrDefaultAsync(u => u.FirstName == model.FirstName && u.LastName == model.LastName);
+                : await _context.Users.FirstOrDefaultAsync(u => u.FirstName == model.FirstName && u.LastName == model.LastName);
 
             if(user != null)
             {

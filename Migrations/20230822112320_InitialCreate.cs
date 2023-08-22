@@ -18,7 +18,7 @@ namespace UserAPI.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar", nullable: false),
+                    DateOfBirth = table.Column<string>(type: "nvarchar", nullable: false),
                     Address = table.Column<string>(type: "nvarchar", nullable: false)
                 },
                 constraints: table =>

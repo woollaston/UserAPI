@@ -11,7 +11,7 @@ using UserAPI.Data;
 namespace UserAPI.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230822062300_InitialCreate")]
+    [Migration("20230822112320_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -30,7 +30,7 @@ namespace UserAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("DateOfBirth")
                         .IsRequired()
                         .HasColumnType("nvarchar");
 

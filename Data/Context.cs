@@ -23,7 +23,7 @@ namespace UserAPI.Data
                 entity.Property(nameof(User.Id)).HasColumnType("uniqueidentifier");
                 entity.Property(nameof(User.FirstName)).HasColumnType("nvarchar");
                 entity.Property(nameof(User.LastName)).HasColumnType("nvarchar");
-                entity.Property(nameof(User.Email)).HasColumnType("nvarchar");
+                entity.Property(nameof(User.DateOfBirth)).HasColumnType("nvarchar");
                 entity.Property(nameof(User.Address)).HasColumnType("nvarchar");
             });
         }
