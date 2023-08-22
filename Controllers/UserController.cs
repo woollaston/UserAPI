@@ -28,6 +28,12 @@ namespace UserAPI.Controllers
         {
             _logger.LogInformation("Create user posted: " + JsonSerializer.Serialize(model));
 
+            if(model?.RequiredFieldsMissing ?? false) 
+            {
+                _logger.LogInformation($"Create user fields missing: user {model.Id}.");
+                return BadRequest("One or more required fields missing.");
+            }
+
             // Try finding existing user
             var user = model.Id != Guid.Empty
                 ? await _context.Users.SingleOrDefaultAsync(u => u.Id == model.Id)

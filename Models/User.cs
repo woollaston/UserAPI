@@ -1,4 +1,6 @@
-﻿namespace UserAPI.Models
+﻿using Microsoft.IdentityModel.Tokens;
+
+namespace UserAPI.Models
 {
     public class User
     {
@@ -8,5 +10,10 @@
         public required string DateOfBirth { get; set; }
         public required string Address { get; set; }
 
+        public bool RequiredFieldsMissing =>
+            FirstName.IsNullOrEmpty() ||
+            LastName.IsNullOrEmpty() ||
+            DateOfBirth.IsNullOrEmpty() ||
+            Address.IsNullOrEmpty();
     }
 }
