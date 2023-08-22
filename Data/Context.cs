@@ -1,6 +1,7 @@
 ﻿using UserAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using UserAPI.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace UserAPI.Data
 {
@@ -8,11 +9,11 @@ namespace UserAPI.Data
     {
         private string DbPath { get; }
 
-        public Context()
+        public Context(IOptions<Config> config)
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "api.db");
+            DbPath = Path.Join(path, config.Value.DbFileName);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

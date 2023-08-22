@@ -12,7 +12,6 @@ namespace UserAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
-
         private readonly IDbContext _context;
 
         public UserController(ILogger<UserController> logger, IDbContext context)
