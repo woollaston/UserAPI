@@ -1,13 +1,9 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using System.Net.Mime;
-using UserAPI.Data;
-using UserAPI.Models;
-using UserAPI.Utils;
-using System.Text;
 using System.Text.Json;
+using UserAPI.Interfaces;
+using UserAPI.Models;
 
 namespace UserAPI.Controllers
 {
@@ -17,13 +13,12 @@ namespace UserAPI.Controllers
     {
         private readonly ILogger<UserController> _logger;
 
-        private readonly Context _context;
+        private readonly IDbContext _context;
 
-
-        public UserController(ILogger<UserController> logger)
+        public UserController(ILogger<UserController> logger, IDbContext context)
         {
             _logger = logger;
-            _context = new Context();
+            _context = context; 
         }
 
         [HttpPost]
@@ -38,7 +33,7 @@ namespace UserAPI.Controllers
             var user = model.Id != Guid.Empty
                 ? await _context.Users.SingleOrDefaultAsync(u => u.Id == model.Id)
                 : await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email) ??
-                    await _context.Users.FirstOrDefaultAsync(u => u.FirstName == model.FirstName && u.LastName== model.LastName);
+                    await _context.Users.FirstOrDefaultAsync(u => u.FirstName == model.FirstName && u.LastName == model.LastName);
 
             if(user != null)
             {
@@ -51,8 +46,7 @@ namespace UserAPI.Controllers
                 model.Id = Guid.NewGuid();
             }
 
-            await _context.AddAsync(model);
-            await _context.SaveChangesAsync();
+            await _context.Save(model);
 
             return CreatedAtAction(nameof(Create), model);
         }

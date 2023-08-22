@@ -1,9 +1,10 @@
 ﻿using UserAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using UserAPI.Interfaces;
 
 namespace UserAPI.Data
 {
-    public class Context : DbContext
+    public class Context : DbContext, IDbContext
     {
         private string DbPath { get; }
 
@@ -16,7 +17,6 @@ namespace UserAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<User>(entity =>
             {
@@ -31,5 +31,11 @@ namespace UserAPI.Data
         public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite($"Data Source={DbPath}");
+
+        public async Task Save<TEntity>(TEntity entity) where TEntity : class
+        {
+            await AddAsync(entity);
+            await SaveChangesAsync();
+        }
     }
 }
