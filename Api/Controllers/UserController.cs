@@ -28,9 +28,9 @@ namespace UserAPI.Controllers
         {
             _logger.LogInformation("Create user posted: " + JsonSerializer.Serialize(model));
 
-            if(model?.RequiredFieldsMissing ?? false) 
+            if(model == null || model.RequiredFieldsMissing)
             {
-                _logger.LogInformation($"Create user fields missing: user {model.Id}.");
+                _logger.LogInformation($"Create user fields missing: user {model?.Id}.");
                 return BadRequest("One or more required fields missing.");
             }
 
